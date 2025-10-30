@@ -77,8 +77,13 @@ export default function App() {
   return (
     <div className="min-h-screen">
       <Navbar />
-      <main className="max-w-4xl mx-auto mt-5 p-3">
-        <section className="flex flex-col gap-4">
+      <main className="max-w-6xl mx-auto mt-5 p-3">
+        {/*
+          Responsive grid:
+          - Mobile: single column (vertical list)
+          - Desktop / large screens: 3 columns per row
+        */}
+        <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {memes.map((m, i) => (
             <div key={i} id={`meme-${i}`}>
               <MemeCard meme={m} />
