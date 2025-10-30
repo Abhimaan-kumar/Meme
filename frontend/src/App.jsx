@@ -3,7 +3,9 @@ import Navbar from './components/Navbar'
 import MemeCard from './components/MemeCard'
 
 const BATCH = 5
-const BACKEND = 'http://localhost:5000'
+// Use the public Meme API directly so the frontend doesn't depend on the backend proxy.
+// If you need to switch back to the local backend, set VITE_BACKEND_URL in .env and update code.
+const MEME_API_BASE = 'https://meme-api.com/gimme'
 
 export default function App() {
   const [memes, setMemes] = useState([])
@@ -16,10 +18,20 @@ export default function App() {
     inFlightRef.current = true
     setLoading(true)
     try {
-      const res = await fetch(`${BACKEND}/memes?n=${BATCH}`)
+      const res = await fetch(`${MEME_API_BASE}/${BATCH}`)
       const data = await res.json()
-      // filter out invalid entries
-      const valid = data.filter((m) => m && m.url)
+
+      // Normalize response: the API sometimes returns { memes: [...] } or a single object
+      let memesArr = []
+      if (data && Array.isArray(data)) {
+        memesArr = data
+      } else if (data && data.memes) {
+        memesArr = data.memes
+      } else if (data && data.url) {
+        memesArr = [data]
+      }
+
+      const valid = memesArr.filter((m) => m && m.url)
       setMemes((p) => [...p, ...valid])
     } catch (err) {
       console.error('Failed to fetch memes', err)
