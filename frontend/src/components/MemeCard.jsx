@@ -38,7 +38,7 @@ export default function MemeCard({ meme }) {
   }
 
   return (
-    <article className="bg-[#0f1720] rounded-xl p-3 border border-white/5">
+    <article className="bg-[#0f1720] rounded-xl p-3 border border-white/10 max-w-xl mx-auto ">
       
       <div className="flex justify-center">
         <img className="max-w-full rounded-md" src={meme.url} alt={meme.title || 'meme'} />
