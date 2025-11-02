@@ -10,4 +10,4 @@ Run the frontend:
 
    npm run dev
 
-The dev server will start (Vite default port 5173). The frontend calls the backend at http://localhost:5000/memes?n=5 — make sure the Flask backend is running.
+The dev server will start (Vite default port 5173). The frontend calls the backend inside it
